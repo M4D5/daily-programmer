@@ -31,10 +31,10 @@ class Well {
                 .orElseThrow(() -> new IllegalStateException("Unable to find the WellSection of maximum depth."));
 
         //Pool will always fill at lowest section first
-        wellPool = new WellPool(lowestSection);
+        wellPool = new WellPool(lowestSection, this);
     }
 
-    public Optional<WellSection> getSectionAtPosition(Position position) {
+    Optional<WellSection> getSectionAtPosition(Position position) {
         if (!isPositionInBounds(position)) {
             return Optional.empty();
         }
@@ -47,7 +47,8 @@ class Well {
                 position.getX() < getWidth() && position.getY() < getHeight(); //Not greater than well width or height
     }
 
-    public void simulate() {
+    void simulate() {
         wellPool.addWater();
     }
 }
+
